@@ -18,6 +18,15 @@
         v-model="formData.description"
       />
     </div>
+    <div>
+      <label for="completed">Completed:</label>
+      <input
+        type="checkbox"
+        id="completed"
+        name="completed"
+        v-model="formData.completed"
+      />
+    </div>
     <button type="submit">Submit</button>
   </form>
 </template>
@@ -28,7 +37,8 @@ export default {
     return {
       formData: {
         title: '',
-        description: ''
+        description: '',
+        completed: false  // Initialize completed as false by default
       }
     };
   },
@@ -48,11 +58,11 @@ export default {
           throw new Error('Failed to create todo');
         }
 
-        const data = await response.json();
-        console.log('New todo created:', data);
+        //const data = await response.json();
         // You can perform additional actions after successful submission, like updating state or displaying a success message
         this.formData.title = '';
         this.formData.description = '';
+        this.formData.completed = false;  // Reset completed to false after submission
       } catch (error) {
         console.error('Error creating todo:', error);
         // Handle error scenarios, e.g., display an error message to the user
