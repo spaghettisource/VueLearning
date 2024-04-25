@@ -1,16 +1,17 @@
 <template>
     <div>
       <ul>
-        <li v-for="item in data" :key="item.id">
-          <template v-if="editItemId === item.id">
+        <li v-for="item in data" :key="item._id">
+          <template v-if="editItemId === item._id">
             <input type="text" v-model="editedDescription" />
-            <button @click="handleUpdate(item.id)">Save</button>
+            <button @click="handleUpdate(item._id)">Save</button>
             <button @click="cancelEdit">Cancel</button>
           </template>
           <template v-else>
             {{ item.description }}
-            <button @click="handleEdit(item.id, item.description)">Edit</button>
-            <button @click="handleDelete(item.id)">Delete</button>
+            {{ console.log(item) }}
+            <button @click="handleEdit(item._id, item.description)">Edit</button>
+            <button @click="handleDelete(item._id)">Delete</button>
           </template>
         </li>
       </ul>
@@ -58,6 +59,7 @@
           });
   
           if (!response.ok) {
+            console.log(response)
             throw new Error('Failed to update todo');
           }
   
